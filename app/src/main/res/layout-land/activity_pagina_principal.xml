@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaginaPrincipal">
+
+    <Button
+        android:id="@+id/addPeso"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="monospace"
+        android:text="Añadir Peso"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/perfil"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/colorAccent"
+        android:drawableLeft="@drawable/profile"
+        android:fontFamily="monospace"
+        android:text="  Perfil"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/pesoIdeal"
+        android:layout_width="394dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="13dp"
+        android:text="Este es tu peso ideal: kg"
+        android:textSize="18sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/pesoActual"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/pesoActual"
+        android:layout_width="394dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="132dp"
+        android:text="Este es tu peso actual: kg"
+        android:textSize="18sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/kcalorias"
+        android:layout_width="394dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="kcal"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/pesoIdeal"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="395dp"
+        android:layout_height="31dp"
+        android:fontFamily="monospace"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="394dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="8dp"
+        android:text="Estas son las kcal diarias que deberías de comer para estar en tu peso ideal: "
+        android:textSize="18sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/kcalorias"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="299dp"
+        android:layout_height="271dp"
+        android:layout_marginStart="416dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progres" />
+
+    <TextView
+        android:id="@+id/progres"
+        android:layout_width="297dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="416dp"
+        android:layout_marginTop="19dp"
+        android:text="Progresión de su peso: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

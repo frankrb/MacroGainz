@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('mariadb-java-client-2.4.1-sources.jar'))

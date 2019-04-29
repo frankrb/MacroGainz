@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">MacroGainz</string>
+    <string name="user_name">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="register">Registrarse</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellidos</string>
+    <string name="email">Email</string>
+    <string name="passqord_rep">Repetir Contraseña</string>
+    <string name="welcome">Te damos la bienvenida</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="explicacion">Para ayudarnos a alcanzar sus objetivos por favor rellene los siguientes datos:</string>
+    <string name="msg_ok">Datos introducidos correctamente</string>
+    <string name="error_BD">Error al añadir a la Base de Datos</string>
+    <string name="error_data">Introduzca los datos correctamente</string>
+    <string name="error_data_value">Introduzca otros datos</string>
+
+    <string name="genero">Genero</string>
+    <string name="peso">Peso</string>
+    <string name="altura">Altura</string>
+    <string name="fecha_nacimiento">Fecha de Nacimiento</string>
+
+    <string name="select_genero">Seleccione su género</string>
+    <string name="select_peso">Seleccione su peso (kg)</string>
+    <string name="select_altura">Seleccione su altura (cm)</string>
+    <string name="select_fecha_nacimiento">Seleccione su fecha de nacimiento</string>
+
+    <string name="sobrepeso">Actualmente se encuentra por encima de su peso "ideal", por ello su plan consistirá en una reducción calórica de lo que come diariamente. Además deberá de realizar más ejercicio, nuestra recomendación es un mínimo de 3 veces a la semana.</string>
+    <string name="bajopeso">Actualmente se encuentra por debajo de su peso "ideal", por ello su plan consistirá en un aumento calórico de lo que come diariamente. Nuestra recomendación es realizar ejercicios de fuerza para aumentar su peso de forma saludable. </string>
+    <string name="pesoIdeal">Actualmente se encuentra en su peso "ideal", queremos felicitarle por su trabajo y animarle a seguir así.</string>
+    <string name="default_notification_channel_id">canal_por_defecto_fcm</string>
+    <string name="default_notification_channel_name">Entrenamiento</string>
+    <string name="msg_subscribe_failed">Fallo de subscripción a notificaciones de entrenamiento</string>
+    <string name="fcm_message">Mensaje FCM</string>
+    <string name="msg_subscribed">Subscrito a las notificaciones de entrenamientos</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+</resources>
