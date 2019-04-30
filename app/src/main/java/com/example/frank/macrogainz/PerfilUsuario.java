@@ -7,7 +7,6 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,10 +35,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.simple.JSONObject;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -124,6 +120,18 @@ public class PerfilUsuario extends AppCompatActivity {
 
 
         usuario.setText(nombreUsuario);
+        //vemos si el usuario tiene foto de perfil
+        try {
+            Bitmap foto64 = (Bitmap) new getInputStream(this, nombreUsuario).execute().get();
+            if(foto64!=null){
+                //si tiene la cargamos
+                imgPerfil.setImageBitmap(foto64);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         try {
             JSONObject json = controladorBDWebService.getInstance().getDatos(this, "getDatos",nombreUsuario);
@@ -314,9 +322,8 @@ public class PerfilUsuario extends AppCompatActivity {
             } else {
                 altoFinal = (int) ((float)anchoDestino / ratioImagen);
             }
+
             Bitmap newBitmap = Bitmap.createScaledBitmap(imageBitmap,anchoFinal,altoFinal,true);
-
-
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             newBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -328,11 +335,12 @@ public class PerfilUsuario extends AppCompatActivity {
             String titulo="foto_usuario";
 
             try {
-                //controladorBDWebService.getInstance().saveImg(getApplicationContext(), "saveImg",nombreUsuario,fotoen64,titulo);
-                String foto64 = (String) new getInputStream(this, nombreUsuario).execute().get();
-                InputStream stream1 = new ByteArrayInputStream(foto64.getBytes(Charset.forName("UTF-8")));
-                Bitmap elBitmap = BitmapFactory.decodeStream(stream1);
-                imgPerfil.setImageBitmap(elBitmap);
+                controladorBDWebService.getInstance().saveImg(getApplicationContext(), "saveImg",nombreUsuario,fotoen64,titulo);
+                Bitmap foto64 = (Bitmap) new getInputStream(this, nombreUsuario).execute().get();
+                if(foto64==null){
+                }else{
+                    imgPerfil.setImageBitmap(foto64);
+                }
 
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -359,6 +367,7 @@ public class PerfilUsuario extends AppCompatActivity {
 
         return edad;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private int calcularEdad(String fecha) throws ParseException {
         int annos;

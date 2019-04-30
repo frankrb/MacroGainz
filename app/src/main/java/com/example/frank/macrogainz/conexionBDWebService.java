@@ -1,6 +1,7 @@
 package com.example.frank.macrogainz;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import org.json.simple.JSONObject;
@@ -104,12 +105,19 @@ public class conexionBDWebService extends AsyncTask<Void, Void, JSONObject> {
 
         try {
             urlConnection = GeneradorConexionesSeguras.getInstance().crearConexionSegura(context, direccion);
-            urlConnection.setConnectTimeout(5000);
-            urlConnection.setReadTimeout(5000);
-
-            //parámetros que le pasamos al php
-            String parametros = "param1="+usuario+"&param2="+contrasena+"&param3="+ejercicio+"&param4="+peso+"&param5="+altura+"&param6="+fechaNac+"&param7="+sexo+"&nombre="+nombre+"&apellidos="+apellidos+"&email="+email+"&token="+token+"&foto="+foto+"&titulo="+titulo;
-
+            if(!operacion.equals("saveImg")) {
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);
+            }
+            String parametros ="";
+            if(!operacion.equals("saveImg")) {
+                //parámetros que le pasamos al php
+                 parametros = "param1=" + usuario + "&param2=" + contrasena + "&param3=" + ejercicio + "&param4=" + peso + "&param5=" + altura + "&param6=" + fechaNac + "&param7=" + sexo + "&nombre=" + nombre + "&apellidos=" + apellidos + "&email=" + email + "&token=" + token + "&foto=" + foto + "&titulo=" + titulo;
+            }else{
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("param1", usuario).appendQueryParameter("foto",foto).appendQueryParameter("titulo",titulo);
+                 parametros = builder.build().getEncodedQuery();
+            }
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);//necesario por el método POST u PUT
             urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

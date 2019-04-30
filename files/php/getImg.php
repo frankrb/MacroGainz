@@ -1,7 +1,7 @@
 <?php
 
 $usuario = $_POST["param1"];
-
+$usuario = "A";
 $resp = "";
 
 $DB_SERVER="localhost"; #la dirección del servidor
