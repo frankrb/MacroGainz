@@ -126,6 +126,8 @@ public class PerfilUsuario extends AppCompatActivity {
             if(foto64!=null){
                 //si tiene la cargamos
                 imgPerfil.setImageBitmap(foto64);
+            }else{
+                imgPerfil.setImageResource(R.drawable.profile);
             }
         } catch (ExecutionException e) {
             e.printStackTrace();
