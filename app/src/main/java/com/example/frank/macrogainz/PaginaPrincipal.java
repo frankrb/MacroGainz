@@ -235,6 +235,8 @@ public class PaginaPrincipal extends AppCompatActivity {
         return annos;
 
     }
+    /**Calcula las kcal diarias del usuario
+     * **/
     private int calcularKcalDiarias(int peso, int altura, int edad, String sexo,String actividad) {
 
         int kcal;
@@ -276,7 +278,8 @@ public class PaginaPrincipal extends AppCompatActivity {
     }
 
 
-
+    /**Muestra la gráfica con los pesos del usuario en el tiempo
+     * **/
     private void mostrarDatos(int[] datos){
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {});
         for(int i=0;i<datos.length;i++){
@@ -286,6 +289,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         graph.addSeries(series);
     }
+
 
     private void numberPickerDialogPeso(){
         NumberPicker myNumberPicker = new NumberPicker(this);
@@ -306,9 +310,11 @@ public class PaginaPrincipal extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 pesoOK=true;
                 peso=nuevoPeso;
+                //subir el peso al servidor
                 controladorBDWebService.getInstance().insertarPeso(getApplicationContext(),"insertarPeso",nombreUsuario, nuevoPeso);
 
                 try {
+                    //muestra los datos
                     mostrarDatos(controladorBDWebService.getInstance().getPesos(getApplicationContext(),"getPesos",nombreUsuario));
                 } catch (ExecutionException e) {
                     e.printStackTrace();

@@ -1,7 +1,6 @@
 <?php
 
 $usuario = $_POST["param1"];
-$usuario = "A";
 $resp = "";
 
 $DB_SERVER="localhost"; #la dirección del servidor
@@ -25,14 +24,13 @@ exit();
 	# Comprobar si se ha ejecutado correctamente
 	if (!$resultado) {
 	$resp = 'Ha ocurrido algún error: ' . mysqli_error($con);
-	
+	echo $resp
 	}else{
 	#Acceder al resultado
 	$fila = mysqli_fetch_row($resultado);
 	
 	$foto = $fila[1];
-		
-	#Devolver el resultado en formato JSON
+
 	echo base64_decode($foto);
 	}
 }

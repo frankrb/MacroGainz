@@ -48,7 +48,8 @@ public class conexionBDWebService extends AsyncTask<Void, Void, JSONObject> {
         titulo=tit;
     }
 
-
+    /**Metodo que devuelve un json con los resultados de las distintas peticiones
+     * **/
     @Override
     protected JSONObject doInBackground(Void... voids) {
 
@@ -95,21 +96,21 @@ public class conexionBDWebService extends AsyncTask<Void, Void, JSONObject> {
             case "saveImg":
                 direccion = "https://134.209.235.115/framos001/WEB/php/saveImg.php";
                 break;
-            case "getImg":
-                direccion = "https://134.209.235.115/framos001/WEB/php/getImg.php";
-                break;
             default:
                 break;
         }
 
 
         try {
+            //establece una conexion HTTPS
             urlConnection = GeneradorConexionesSeguras.getInstance().crearConexionSegura(context, direccion);
             if(!operacion.equals("saveImg")) {
                 urlConnection.setConnectTimeout(5000);
                 urlConnection.setReadTimeout(5000);
             }
+            //inicializamos los parametros de la petición
             String parametros ="";
+
             if(!operacion.equals("saveImg")) {
                 //parámetros que le pasamos al php
                  parametros = "param1=" + usuario + "&param2=" + contrasena + "&param3=" + ejercicio + "&param4=" + peso + "&param5=" + altura + "&param6=" + fechaNac + "&param7=" + sexo + "&nombre=" + nombre + "&apellidos=" + apellidos + "&email=" + email + "&token=" + token + "&foto=" + foto + "&titulo=" + titulo;
@@ -118,6 +119,7 @@ public class conexionBDWebService extends AsyncTask<Void, Void, JSONObject> {
                         .appendQueryParameter("param1", usuario).appendQueryParameter("foto",foto).appendQueryParameter("titulo",titulo);
                  parametros = builder.build().getEncodedQuery();
             }
+
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);//necesario por el método POST u PUT
             urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -130,6 +132,7 @@ public class conexionBDWebService extends AsyncTask<Void, Void, JSONObject> {
             int statusCode = urlConnection.getResponseCode();
 
             if (statusCode == 200){
+                //guardamos los resultados en el json
                 BufferedInputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(inputStream, "UTF-8"));
                 String line, result="";

@@ -122,7 +122,7 @@ public class PerfilUsuario extends AppCompatActivity {
         usuario.setText(nombreUsuario);
         //vemos si el usuario tiene foto de perfil
         try {
-            Bitmap foto64 = (Bitmap) new getInputStream(this, nombreUsuario).execute().get();
+            Bitmap foto64 = (Bitmap) new ProfilePicture(this, nombreUsuario).execute().get();
             if(foto64!=null){
                 //si tiene la cargamos
                 imgPerfil.setImageBitmap(foto64);
@@ -206,8 +206,9 @@ public class PerfilUsuario extends AppCompatActivity {
         notificaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //
                 Log.d(TAG, "Subscripción a entrenamientos");
-                // [START subscribe_topics]
+                // Empieza la suscripción a temas: Entrenamiento
                 FirebaseApp.initializeApp(PerfilUsuario.this);
                 FirebaseMessaging.getInstance().subscribeToTopic("Entrenamiento")
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -221,9 +222,9 @@ public class PerfilUsuario extends AppCompatActivity {
                                 Toast.makeText(PerfilUsuario.this, msg, Toast.LENGTH_SHORT).show();
                             }
                         });
-                // [END subscribe_topics]
+                // [Termina suscripción]
 
-                // Get token
+                // Obtenemos el token
                 // [START retrieve_current_token]
                 FirebaseInstanceId.getInstance().getInstanceId()
                         .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -259,7 +260,8 @@ public class PerfilUsuario extends AppCompatActivity {
         });
 
     }
-
+    /**Metodo para saacar foto con la cámara
+     * **/
     private void dispatchTakePictureIntent() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!=
                 PackageManager.PERMISSION_GRANTED) {
@@ -298,7 +300,8 @@ public class PerfilUsuario extends AppCompatActivity {
 
     }
 
-
+    /**Método que gestiona el resultado obtenido al hacer una foto con la cámara
+     * **/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -337,8 +340,10 @@ public class PerfilUsuario extends AppCompatActivity {
             String titulo="foto_usuario";
 
             try {
+                //subimos la imagen al servidor
                 controladorBDWebService.getInstance().saveImg(getApplicationContext(), "saveImg",nombreUsuario,fotoen64,titulo);
-                Bitmap foto64 = (Bitmap) new getInputStream(this, nombreUsuario).execute().get();
+                //descargamos la imagen del servidor
+                Bitmap foto64 = (Bitmap) new ProfilePicture(this, nombreUsuario).execute().get();
                 if(foto64==null){
                 }else{
                     imgPerfil.setImageBitmap(foto64);
@@ -353,7 +358,8 @@ public class PerfilUsuario extends AppCompatActivity {
     }
 
 
-
+    /**Devuelve el mejor peso según la altura y el sexo
+     * **/
     private int getMejorPeso(int altura, String sexo) {
         int mejorPeso=0;
         if(sexo.equals("masculino")){
@@ -364,12 +370,8 @@ public class PerfilUsuario extends AppCompatActivity {
         return  mejorPeso;
     }
 
-    private int calcularEdad(){
-        int edad = 0;
-
-        return edad;
-    }
-
+    /**Devuelve la edad actual según una fecha dada
+     * **/
     @RequiresApi(api = Build.VERSION_CODES.O)
     private int calcularEdad(String fecha) throws ParseException {
         int annos;
@@ -409,6 +411,8 @@ public class PerfilUsuario extends AppCompatActivity {
         super.onDestroy();
     }
 
+    /**Gestiona los permisos de la aplicación
+     * **/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {

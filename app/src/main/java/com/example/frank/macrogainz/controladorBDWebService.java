@@ -23,7 +23,7 @@ public class controladorBDWebService {
         }
         return instancia;
     }
-
+    //devuelve true si los datos del usuario son correctos
     public boolean login(Context cont, String oper, String usr, String contra) throws IOException, ParseException, ExecutionException, InterruptedException {
         boolean sePuede=false;
         JSONObject json = new conexionBDWebService(cont, oper, usr, contra).execute().get();
@@ -34,7 +34,7 @@ public class controladorBDWebService {
         }
         return sePuede;
     }
-
+    //devuelve true si existen datos adicionales del usuario
     public boolean existenDatos(Context cont, String oper, String usr) throws ExecutionException, InterruptedException {
         boolean existen=true;
         JSONObject json = new conexionBDWebService(cont, oper, usr).execute().get();
@@ -46,13 +46,14 @@ public class controladorBDWebService {
         }
         return existen;
     }
+    //devuelve un json con los datos del usuario
     public JSONObject getDatos(Context cont, String oper, String usr) throws ExecutionException, InterruptedException {
         boolean existen=true;
         JSONObject json = new conexionBDWebService(cont, oper, usr).execute().get();
 
         return json;
     }
-
+    //devuelve true si se ha realizado correctamente la petición
     public boolean updateUsuarioEjercicio(Context cont,String oper, String usr,String ejer) throws ExecutionException, InterruptedException {
         boolean correcto=false;
         JSONObject json = new conexionBDWebService(cont, oper, usr,ejer).execute().get();
@@ -65,7 +66,7 @@ public class controladorBDWebService {
         return correcto;
     }
 
-
+    //devuelve true si se ha realizado correctamente la petición
     public boolean updateUsuarioDetalles(Context applicationContext, String oper, String usr, int peso, int alt, String fecha, String genero) throws ExecutionException, InterruptedException {
         boolean correcto=false;
         JSONObject json = new conexionBDWebService(applicationContext, oper, usr,peso, alt, fecha, genero).execute().get();
@@ -78,7 +79,7 @@ public class controladorBDWebService {
         return correcto;
 
     }
-
+    //devuelve true si se ha realizado correctamente la petición
     public boolean insertarPesoInicial(Context applicationContext, String oper, String usr, int peso) throws ExecutionException, InterruptedException {
         boolean correcto=false;
         JSONObject json = new conexionBDWebService(applicationContext, oper, usr,peso).execute().get();
@@ -91,12 +92,13 @@ public class controladorBDWebService {
         return correcto;
 
     }
-
+    //inserta un nuevo peso y actualiza el peso del usuario
     public void insertarPeso(Context applicationContext, String insertarPeso, String nombreUsuario, int peso) {
         new conexionBDWebService(applicationContext,insertarPeso,nombreUsuario, peso).execute();
 
     }
 
+    //devuelve un array con todos los pesos del usuario
     public int[] getPesos(Context applicationContext, String getPesos, String nombreUsuario) throws ExecutionException, InterruptedException {
         JSONObject json = new conexionBDWebService(applicationContext,getPesos,nombreUsuario).execute().get();
         JSONArray arr = (JSONArray) json.get("Pesos");
@@ -115,6 +117,7 @@ public class controladorBDWebService {
         return pesos;
     }
 
+    //inserta un nuevo usuario con los datos proporcionados
     public boolean insertarUsuario(Context applicationContext, String insertarUsuario, String usuario, String nombre, String apellidos, String email, String contra) throws ExecutionException, InterruptedException {
         boolean correcto=false;
         JSONObject json = new conexionBDWebService(applicationContext, insertarUsuario,usuario,nombre,apellidos,email,contra).execute().get();
@@ -127,31 +130,19 @@ public class controladorBDWebService {
         return correcto;
     }
 
+    //inserta un nuevo token del usuario
     public void insertarToken(Context context,String oper,String user,String token) {
         new conexionBDWebService(context,oper,user,token).execute();
     }
-
+    //genera una notificación FCM desde php del servidor
     public void mensajesFCMweb(Context applicationContext, String mensajesFCMweb, String nombreUsuario) {
         new conexionBDWebService(applicationContext,mensajesFCMweb,nombreUsuario).execute();
     }
-
+    //guarda la imagen encoded en string64
     public void saveImg(Context applicationContext, String saveImg, String nombreUsuario, String fotoen64, String titulo) throws ExecutionException, InterruptedException {
         Toast.makeText(applicationContext, "*******saveIMGCONNNNN: \n" + fotoen64 + "\n**********", Toast.LENGTH_SHORT).show();
         JSONObject json = new conexionBDWebService(applicationContext, saveImg,nombreUsuario,fotoen64,titulo).execute().get();
         String res = (String) json.get("respuesta");
         Toast.makeText(applicationContext, "*******RESPUESTAS: \n" + res + "\n**********", Toast.LENGTH_SHORT).show();
-    }
-
-    public String getImg(Context applicationContext, String getImg, String nombreUsuario) throws ExecutionException, InterruptedException {
-        String foto64decoded="";
-        JSONObject json = new conexionBDWebService(applicationContext, getImg,nombreUsuario).execute().get();
-        String res = (String) json.get("respuesta");
-        Toast.makeText(applicationContext, "*******RESPUESTAS: \n" + res + "\n**********", Toast.LENGTH_SHORT).show();
-        if(res.equals("correcto")){
-             foto64decoded = (String) json.get("foto");
-            return foto64decoded;
-        }else{
-            return foto64decoded;
-        }
     }
 }

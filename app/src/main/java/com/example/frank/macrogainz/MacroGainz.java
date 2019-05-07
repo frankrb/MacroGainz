@@ -1,11 +1,9 @@
 package com.example.frank.macrogainz;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +56,7 @@ public class MacroGainz extends AppCompatActivity {
                 boolean correcto=false;
                 controladorBDWebService controlador = controladorBDWebService.getInstance();
                 try {
+                    //intenta logearse con el servidor
                     correcto = controlador.login(getApplicationContext(),"login",usuario.getText().toString().trim(),contra.getText().toString().trim());
                 } catch (IOException e) {
                     e.printStackTrace();

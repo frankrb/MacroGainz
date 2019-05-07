@@ -11,12 +11,13 @@ import java.io.PrintWriter;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class getInputStream extends AsyncTask {
+public class ProfilePicture extends AsyncTask {
     Context context;
     String usuario;
     String res;
 
-
+    /**Este método nos devuelve un Bitmap con la imagen del usuario en cuestión
+     * **/
     @Override
     protected Bitmap doInBackground(Object[] objects) {
 
@@ -24,6 +25,7 @@ public class getInputStream extends AsyncTask {
         HttpsURLConnection urlConnection = null;
         Bitmap resultado = null;
         try {
+            //nos conectamos de forma segura mediante HTTPS
             urlConnection = GeneradorConexionesSeguras.getInstance().crearConexionSegura(context, direccion);
             //urlConnection.setConnectTimeout(5000);
             //urlConnection.setReadTimeout(5000);
@@ -45,10 +47,11 @@ public class getInputStream extends AsyncTask {
             out.print(parametrosURL);
             out.close();
 
-            System.out.println("************* Cargando la imagen ");
+
             int statusCode = urlConnection.getResponseCode();
 
             if (statusCode == 200){
+                //obtenemos la imagen de la BD del servidor
                 resultado = BitmapFactory.decodeStream(urlConnection.getInputStream());
             }else{
                 System.out.println("No se ha cargado la imagen");
@@ -60,7 +63,7 @@ public class getInputStream extends AsyncTask {
         return resultado;
     }
 
-    public  getInputStream(Context cont,String usr){
+    public ProfilePicture(Context cont, String usr){
         context=cont;
         usuario=usr;
     }

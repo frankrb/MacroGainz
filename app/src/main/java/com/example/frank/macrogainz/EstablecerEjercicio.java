@@ -1,15 +1,14 @@
 package com.example.frank.macrogainz;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -64,8 +63,6 @@ public class EstablecerEjercicio extends AppCompatActivity {
         GridLayoutManager elLayoutRejillaIgual= new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         lalista.setLayoutManager(elLayoutRejillaIgual);
 
-
-
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +87,7 @@ public class EstablecerEjercicio extends AppCompatActivity {
 
                 try {
                     //1 == GestorBD.updateUsuarioEjercicio(nombreUsuario, nombreEjercicio)
+                    //introduce en la BD del servidor la cantidad de ejercicio que hace el usuario
                     if(controladorBDWebService.getInstance().updateUsuarioEjercicio(getApplicationContext(), "updateUsuarioEjercicio",nombreUsuario,nombreEjercicio)){
                         Intent i= new Intent(EstablecerEjercicio.this,PaginaPrincipal.class);
                         i.putExtra("usuario",nombreUsuario);
@@ -107,6 +105,7 @@ public class EstablecerEjercicio extends AppCompatActivity {
                 boolean correcto=false;
                 try {
                     //row = GestorBD.updateUsuarioDetalles(nombreUsuario,peso,altura,fecha,genero);
+                    //introduce los datos del usuario e inserta el peso inicial del mismo
                     correcto = controladorBDWebService.getInstance().updateUsuarioDetalles(getApplicationContext(), "updateUsuarioDetalles",nombreUsuario,peso,altura,fecha,genero);
                     controladorBDWebService.getInstance().insertarPesoInicial(getApplicationContext(), "insertarPesoInicial",nombreUsuario,peso);
 

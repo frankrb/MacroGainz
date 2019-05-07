@@ -19,7 +19,8 @@ import static android.support.constraint.Constraints.TAG;
 public class ServicioFirebase extends FirebaseMessagingService {
     public ServicioFirebase() {
     }
-
+    /**Este métdo gestiona los mensajes recibidos desde FCM
+     * **/
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         //Si la aplicación está en background, se
@@ -47,13 +48,10 @@ public class ServicioFirebase extends FirebaseMessagingService {
         //Qué hacer cada vez que se genere un
         //token para el dispositivo
         Log.d(TAG, "Nuevo token: " + token);
-        sendRegistrationToServer(token);
     }
 
-    private void sendRegistrationToServer(String token) {
-        //controladorBDWebService.getInstance().saveToken(getApplicationContext(),,token);
-    }
-
+    /**Este metodo lanza la notificación a nuestro teléfono
+     * **/
     private void sendNotification(RemoteMessage.Notification notification) {
         Intent intent = new Intent(this, PerfilUsuario.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -74,7 +72,7 @@ public class ServicioFirebase extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Since android Oreo notification channel is needed.
+        // desde android Oreo el canal de notificación se requiere
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId,
                     "Channel human readable title",
